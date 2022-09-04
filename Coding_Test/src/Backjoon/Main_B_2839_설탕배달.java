@@ -2,7 +2,7 @@ package Backjoon;
 
 import java.util.Scanner;
 
-public class Silver_2839 {
+public class Main_B_2839_설탕배달 {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
