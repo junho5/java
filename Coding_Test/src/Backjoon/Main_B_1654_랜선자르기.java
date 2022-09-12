@@ -5,13 +5,14 @@ import java.io.*;
 
 public class Main_B_1654_랜선자르기 {
 	
-	static int k,n;
+	static int k,n,answer,result;
 
 	public static void main(String[] args) throws Exception {
 		System.setIn(new FileInputStream("input/1654.txt"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 		StringBuilder sb = new StringBuilder();
+		
 		
 		st = new StringTokenizer(br.readLine());
 		
@@ -23,22 +24,52 @@ public class Main_B_1654_랜선자르기 {
 			list.add(Integer.parseInt(br.readLine()));
 		}
 		Collections.sort(list , Collections.reverseOrder());
-		// 정답: 1073741823
-//		System.out.println(list);
+		System.out.println(list);
+		
 		int max = list.get(0);
-		int answer = 0;
-		for (int i = 1; i < max/2; i++) {
-			int sum = 0;
-			for (int j = 0; j < list.size(); j++) {
-				sum += list.get(j)/i;
+		int min = 0;
+		int cnt = 0;
+		
+		while(true) {
+			answer = 0;
+			int half = (max+min)/2;
+			
+			for (int i = 0; i < list.size(); i++) {
+				answer += list.get(i) / half;
 			}
-			if (sum == n) {
-				answer = i;
+			if(cnt==10) {
+				System.out.println(half);
+				System.out.println(answer);
+				break;
 			}
-			System.out.println(sum);
+			
+			if (answer == n) {
+				answer = half;
+				break;
+				
+			}else if (answer < n){
+				max = half-1;
+			}else if (answer > n) {
+				min = half+1;
+			}
+			cnt++;
 		}
-		sb.append(answer);
-		System.out.println(answer);
+		
+//		while(true) {
+//			for (int i = 0; i < list.size(); i++) {
+//				result += list.get(i) / answer;
+//			}
+//			
+//			if (result > n) {
+//				answer --;
+//				break;
+//			}
+//			else answer++;
+//		}
+		
+//		System.out.println(answer);
+		
+		
 	}
 
 	
