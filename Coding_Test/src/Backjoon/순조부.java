@@ -22,9 +22,9 @@ public class 순조부 {
 		
 //		perm1(0);
 //		perm2(0);
-		perm3(0,0);
+//		perm3(0,0);
 //		perm4(0,0);
-//		subset(0);
+		subset(0);
 	}
 	
 	private static void perm1(int cnt) {

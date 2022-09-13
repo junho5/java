@@ -5,7 +5,7 @@ import java.io.*;
 
 public class Main_B_1654_랜선자르기 {
 	
-	static int k,n,answer,result;
+	static long k,n,answer,result;
 
 	public static void main(String[] args) throws Exception {
 		System.setIn(new FileInputStream("input/1654.txt"));
@@ -24,50 +24,39 @@ public class Main_B_1654_랜선자르기 {
 			list.add(Integer.parseInt(br.readLine()));
 		}
 		Collections.sort(list , Collections.reverseOrder());
-		System.out.println(list);
+//		System.out.println(list);
 		
-		int max = list.get(0);
-		int min = 0;
-		int cnt = 0;
+		long max = list.get(0);
+		long min = 1;
+		result = Integer.MIN_VALUE;
 		
-		while(true) {
+		while(min<=max) {
 			answer = 0;
-			int half = (max+min)/2;
+			long half = (max+min)/2;
+//			System.out.println(half);
+			
+			if(half==0) {
+				result = 0;
+				break;
+			}
 			
 			for (int i = 0; i < list.size(); i++) {
 				answer += list.get(i) / half;
 			}
-			if(cnt==10) {
-				System.out.println(half);
-				System.out.println(answer);
-				break;
-			}
+//			System.out.println(answer);
 			
-			if (answer == n) {
-				answer = half;
-				break;
-				
-			}else if (answer < n){
+			if (answer < n){
 				max = half-1;
-			}else if (answer > n) {
+			}else{
 				min = half+1;
 			}
-			cnt++;
+			
+			if (answer >= n && half > result) {
+				result = half;
+			}
+			
 		}
-		
-//		while(true) {
-//			for (int i = 0; i < list.size(); i++) {
-//				result += list.get(i) / answer;
-//			}
-//			
-//			if (result > n) {
-//				answer --;
-//				break;
-//			}
-//			else answer++;
-//		}
-		
-//		System.out.println(answer);
+		System.out.println(result);
 		
 		
 	}
