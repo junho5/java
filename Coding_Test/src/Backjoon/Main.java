@@ -10,15 +10,6 @@ public class Main {
 		StringTokenizer st;
 		
 		
-		int range = Integer.parseInt(br.readLine());
-		
-		for (int i = 0; i < range; i++) {
-			String word = br.readLine();
-			System.out.print(word.charAt(0));
-			System.out.print(word.charAt(word.length()-1));
-			System.out.println();
-		}
-		
 		
 	}
 
