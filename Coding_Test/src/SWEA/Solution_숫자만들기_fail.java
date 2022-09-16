@@ -1,4 +1,4 @@
-package Backjoon;
+package SWEA;
 
 import java.util.*;
 
