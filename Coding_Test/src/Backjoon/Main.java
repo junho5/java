@@ -9,7 +9,8 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 		
-		
+		System.out.println(Integer.parseInt("1F7",16));
+		System.out.println(Integer.parseInt("d",16));
 		
 	}
 
