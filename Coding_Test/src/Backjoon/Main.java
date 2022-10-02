@@ -3,64 +3,72 @@ package Backjoon;
 import java.util.*;
 import java.io.*;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
-
 public class Main {
-	
 	static int N,W,H,answer;
 	static int[][] map, map_copy;
-	static boolean[][] V;
-	static boolean[] selected;
 	static int[] numbers;
+	static boolean[] selected;
+	static boolean[][] V;
+	static int[] dx = { 1,-1, 0, 0 };
+	static int[] dy = { 0, 0,-1, 1 };
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+//		System.setIn(new FileInputStream("input/5656.txt"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		StringBuilder sb = new StringBuilder();
 		Scanner sc = new Scanner(System.in);
-		int  T = sc.nextInt();
-		for(int tc=1; tc<=T; tc++) {
-			N = sc.nextInt();
-			W = sc.nextInt();
-			H = sc.nextInt();
+		int time = Integer.parseInt(br.readLine());
+		for(int tc=1; tc<=time; tc++) {
+			st = new StringTokenizer(br.readLine());
+			N = Integer.parseInt(st.nextToken());
+			W = Integer.parseInt(st.nextToken());
+			H = Integer.parseInt(st.nextToken());
+			answer = Integer.MAX_VALUE;
 			
 			map = new int[H][W];
 			map_copy = new int[H][W];
 			V = new boolean[H][W];
 			selected = new boolean[W];
 			numbers = new int[N];
-			answer = Integer.MAX_VALUE;
 			
 			for(int i=0; i<H; i++) {
+				st = new StringTokenizer(br.readLine());
 				for(int j=0; j<W; j++) {
-					map[i][j] = sc.nextInt();
+					map[i][j] = Integer.parseInt(st.nextToken());
 					map_copy[i][j] = map[i][j];
 				}
 			}
+//			System.arraycopy(map, 0, map_copy, 0, map.length);
 			
 			perm(0);
-			System.out.println("#"+tc+" "+answer);
+			sb.append("#");
+			sb.append(tc);
+			sb.append(" ");
+			sb.append(answer);
+			sb.append("\n");
 		}
+		System.out.println(sb.toString());
 	}
 	
 	static void perm(int cnt) {
-		if(cnt == N) {
-			//공 쏠 위치 찾기
-//			System.out.println(Arrays.toString(numbers));
+		if(cnt == N ) {
+			// 중복 수열로 bfs 진행 하면서 부수기
 			for(int b=0; b<N; b++) {
-				destroy(numbers[b]);
+				bfs(numbers[b]);
 				
-				//세로로 돌면서 블럭 옮겨주기
+				// 블록 옮기는 부분
 				for(int j=0; j<W; j++) { 
 					int[] temp = new int[H];
 					int idx = 0;
-					//세로 줄 중 0이 아닌 숫자들 temp에 넣어주기
+					// 블럭 0아닌 값 체크
 					for(int i=H-1; i>=0; i--) {
 						if(map[i][j] != 0) {
 							temp[idx++] = map[i][j];
 						}
 					}
 					
-					//뒤부터 0이 아닌 숫자 넣어주기
+					// 블럭내리기
 					idx = 0;
 					for(int i=0; i<H; i++) {
 						map[i][j] = temp[H-1-i];
@@ -68,7 +76,8 @@ public class Main {
 				}
 			}
 			
-			int block = 0; //이번 블럭 갯수
+			// 값 체크
+			int block = 0; 
 			for(int i=0; i<H; i++) {
 				for(int j=0; j<W; j++) {
 					if(map[i][j] != 0)
@@ -76,13 +85,13 @@ public class Main {
 				}
 			}
 			
-			//다음꺼 계산 위해 원상복구
+			// 초기화
 			for(int i=0; i<H; i++) {
 				for(int j=0; j<W; j++) {
 					map[i][j] = map_copy[i][j];
 				}
 			}
-
+			
 			if(answer > block) {
 				answer = block;
 			}
@@ -90,7 +99,7 @@ public class Main {
 			return;
 		}
 		
-		//공 쏠 곳 N개 뽑기
+		// 중복 순열
 		for(int i=0; i<W; i++) {
 			numbers[cnt] = i;
 			selected[i] = true;
@@ -99,8 +108,8 @@ public class Main {
 		}
 	}
 	
-	//공 쏠 위치 기준으로 삭제
-	static void destroy(int index) {
+	// bfs
+	static void bfs(int index) {
 		Queue<stone> q = new LinkedList<>();
 		
 		for(int i=0; i<H; i++) {
@@ -112,37 +121,33 @@ public class Main {
 		
 		while(!q.isEmpty()) {
 			stone p = q.poll();
-			int x = p.x;
-			int y = p.y;
-			
-			//위
-			for(int i=0; i<p.range; i++) {
-				if(x-i>=0 && map[x-i][y] != 0) {
-					q.add(new stone(x-i, y, map[x-i][y]));
-					map[x-i][y] = 0;
-				}
-			}
-			//아래
-			for(int i=0; i<p.range; i++) {
-				if(x+i<H && map[x+i][y] != 0) {
-					q.add(new stone(x+i, y, map[x+i][y]));
-					map[x+i][y] = 0;
-				}
-			}
-			//왼쪽
-			for(int i=0; i<p.range; i++) {
-				if(y-i>=0 && map[x][y-i] != 0) {
-					q.add(new stone(x, y-i, map[x][y-i]));
-					map[x][y-i] = 0;
-				}
-			}
-			//오른쪽
-			for(int i=0; i<p.range; i++) {
-				if(y+i<W && map[x][y+i] != 0) {
-					q.add(new stone(x, y+i, map[x][y+i]));
-					map[x][y+i] = 0;
-				}
-			}
+	         int x = p.x;
+	         int y = p.y;
+	         
+	         for(int i=0; i<p.range; i++) {
+	            if(x-i>=0 && map[x-i][y] != 0) {
+	               q.add(new stone(x-i, y, map[x-i][y]));
+	               map[x-i][y] = 0;
+	            }
+	         }
+	         for(int i=0; i<p.range; i++) {
+	            if(x+i<H && map[x+i][y] != 0) {
+	               q.add(new stone(x+i, y, map[x+i][y]));
+	               map[x+i][y] = 0;
+	            }
+	         }
+	         for(int i=0; i<p.range; i++) {
+	            if(y-i>=0 && map[x][y-i] != 0) {
+	               q.add(new stone(x, y-i, map[x][y-i]));
+	               map[x][y-i] = 0;
+	            }
+	         }
+	         for(int i=0; i<p.range; i++) {
+	            if(y+i<W && map[x][y+i] != 0) {
+	               q.add(new stone(x, y+i, map[x][y+i]));
+	               map[x][y+i] = 0;
+	            }
+	         }
 		}
 	}
 	
@@ -150,7 +155,7 @@ public class Main {
 		int x,y, range;
 		stone(int x, int y, int range){
 			this.x = x;
-			this.y = x;
+			this.y = y;
 			this.range = range;
 		}
 	}
