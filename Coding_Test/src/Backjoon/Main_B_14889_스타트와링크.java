@@ -3,7 +3,7 @@ package Backjoon;
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class Main_B_14889_스타트와링크 {
 	
 	static int num,answer;
 	static int [][] map;

@@ -3,177 +3,123 @@ package SWEA;
 import java.util.*;
 import java.io.*;
 
- 
+//1
+//5
+//2 1 0 1
+//3 5 3 7 9
+
 public class Solution {
-    static int tc, n, m, r, c, l, count;
-    static int[][] map, visited, copy;
-    static int[] dx = { -1, 1, 0, 0 };
-    static int[] dy = { 0, 0, -1, 1 };
-    static int[][] search = { { 1, 2, 5, 6 }, { 1, 2, 4, 7 }, { 1, 3, 4, 5 }, { 1, 3, 6, 7 } }; 
- 
- 
+	
+	static int tc,N,max,min;
+	static List<Integer> list;
+	static int [] num;
+	static int [] op;
+	static int [] op_num;
+	static boolean [] V;
+	static Set<String> set;
+	
     public static void main(String[] args) throws Exception{
+    	System.setIn(new FileInputStream("input/4008.txt"));
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     	StringTokenizer st;
-        tc = Integer.parseInt(br.readLine());
+    	StringBuilder sb = new StringBuilder();
         
-        for (int tn = 1; tn <= tc; tn++) {
-        	st = new StringTokenizer(br.readLine());
-            n = Integer.parseInt(st.nextToken());
-            m = Integer.parseInt(st.nextToken());
-            r = Integer.parseInt(st.nextToken());
-            c = Integer.parseInt(st.nextToken());
-            l = Integer.parseInt(st.nextToken());
- 
-            map = new int[n][m];
-            copy = new int[n][m];
-            visited = new int[n][m];
- 
-            for (int i = 0; i < n; i++) {
-            	st = new StringTokenizer(br.readLine());
-                for (int j = 0; j < m; j++) {
-                    map[i][j] = Integer.parseInt(st.nextToken());
-                }
-            }
- 
-            bfs(r, c);
-            count = 0;
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    if (copy[i][j] > 0 && copy[i][j] <= l) {
-                        count++;
-                    }
-                }
-            }
-            System.out.println("#" + tn + " " + count);
- 
-        }
-    }
- 
-    private static void bfs(int x, int y) {
-        Queue<Pipe> q = new LinkedList<>();
-        q.offer(new Pipe(x, y));
-        visited[x][y] = 1;
-        copy[x][y] = 1;
- 
-        while (!q.isEmpty()) {
-            Pipe pipe = q.poll();
-            int nx, ny;
-            switch (map[pipe.x][pipe.y]) {
-            case 1: 
-                for (int i = 0; i < 4; i++) {
-                    nx = pipe.x + dx[i];
-                    ny = pipe.y + dy[i];
-                    if (nx >= 0 && ny >= 0 && nx < n && ny < m && visited[nx][ny] == 0 && map[nx][ny] > 0) {
-                        for (int j = 0; j < 4; j++) {
-                            if (map[nx][ny] == search[i][j]) {
-                                q.offer(new Pipe(nx, ny));
-                                visited[nx][ny] = 1;
-                                copy[nx][ny] = copy[pipe.x][pipe.y] + 1;
-                            }
-                        }
-                    }
-                }
-                break;
-            case 2: 
-                for (int i = 0; i < 2; i++) {
-                    nx = pipe.x + dx[i];
-                    ny = pipe.y + dy[i];
-                    if (nx >= 0 && ny >= 0 && nx < n && ny < m && visited[nx][ny] == 0 && map[nx][ny] > 0) {
-                        for (int j = 0; j < 4; j++) {
-                            if (map[nx][ny] == search[i][j]) {
-                                q.offer(new Pipe(nx, ny));
-                                visited[nx][ny] = 1;
-                                copy[nx][ny] = copy[pipe.x][pipe.y] + 1;
-                            }
-                        }
-                    }
-                }
-                break;
-            case 3: 
-                for (int i = 2; i < 4; i++) {
-                    nx = pipe.x + dx[i];
-                    ny = pipe.y + dy[i];
-                    if (nx >= 0 && ny >= 0 && nx < n && ny < m && visited[nx][ny] == 0 && map[nx][ny] > 0) {
-                        for (int j = 0; j < 4; j++) {
-                            if (map[nx][ny] == search[i][j]) {
-                                q.offer(new Pipe(nx, ny));
-                                visited[nx][ny] = 1;
-                                copy[nx][ny] = copy[pipe.x][pipe.y] + 1;
-                            }
-                        }
-                    }
-                }
-                break;
-            case 4: 
-                for (int i = 0; i < 4; i += 3) {
-                    nx = pipe.x + dx[i];
-                    ny = pipe.y + dy[i];
-                    if (nx >= 0 && ny >= 0 && nx < n && ny < m && visited[nx][ny] == 0 && map[nx][ny] > 0) {
-                        for (int j = 0; j < 4; j++) {
-                            if (map[nx][ny] == search[i][j]) {
-                                q.offer(new Pipe(nx, ny));
-                                visited[nx][ny] = 1;
-                                copy[nx][ny] = copy[pipe.x][pipe.y] + 1;
-                            }
-                        }
-                    }
-                }
-                break;
-            case 5: 
-                for (int i = 1; i < 4; i += 2) {
-                    nx = pipe.x + dx[i];
-                    ny = pipe.y + dy[i];
-                    if (nx >= 0 && ny >= 0 && nx < n && ny < m && visited[nx][ny] == 0 && map[nx][ny] > 0) {
-                        for (int j = 0; j < 4; j++) {
-                            if (map[nx][ny] == search[i][j]) {
-                                q.offer(new Pipe(nx, ny));
-                                visited[nx][ny] = 1;
-                                copy[nx][ny] = copy[pipe.x][pipe.y] + 1;
-                            }
-                        }
-                    }
-                }
-                break;
-            case 6: 
-                for (int i = 1; i < 3; i++) {
-                    nx = pipe.x + dx[i];
-                    ny = pipe.y + dy[i];
-                    if (nx >= 0 && ny >= 0 && nx < n && ny < m && visited[nx][ny] == 0 && map[nx][ny] > 0) {
-                        for (int j = 0; j < 4; j++) {
-                            if (map[nx][ny] == search[i][j]) {
-                                q.offer(new Pipe(nx, ny));
-                                visited[nx][ny] = 1;
-                                copy[nx][ny] = copy[pipe.x][pipe.y] + 1;
-                            }
-                        }
-                    }
-                }
-                break;
-            case 7: 
-                for (int i = 0; i < 3; i += 2) {
-                    nx = pipe.x + dx[i];
-                    ny = pipe.y + dy[i];
-                    if (nx >= 0 && ny >= 0 && nx < n && ny < m && visited[nx][ny] == 0 && map[nx][ny] > 0) {
-                        for (int j = 0; j < 4; j++) {
-                            if (map[nx][ny] == search[i][j]) {
-                                q.offer(new Pipe(nx, ny));
-                                visited[nx][ny] = 1;
-                                copy[nx][ny] = copy[pipe.x][pipe.y] + 1;
-                            }
-                        }
-                    }
-                }
-                break;
-            }
-        }
-    }
-    private static class Pipe {
-    	private int x, y;
-    	
-    	public Pipe(int x, int y) {
-    		this.x = x;
-    		this.y = y;
+    	tc = Integer.parseInt(br.readLine());
+    	for (int test_case = 1; test_case <= tc; test_case++) {
+    		N = Integer.parseInt(br.readLine());
+    		num = new int [N];
+    		list = new ArrayList<>();
+    		op = new int [4]; // + - * / 개수 들어갈 배열
+    		op_num = new int [N-1]; // 연산자 개수 넘길때 사용
+    		V = new boolean [N-1];
+    		set = new HashSet<>();
+    		max = Integer.MIN_VALUE;
+    		min = Integer.MAX_VALUE;
+    		
+    		st = new StringTokenizer(br.readLine());
+    		for (int i = 0; i < 4; i++) {
+    			op[i] = Integer.parseInt(st.nextToken());
+    		}
+    		
+    		st = new StringTokenizer(br.readLine());
+    		for (int i = 0; i < N; i++) {
+    			num[i] = Integer.parseInt(st.nextToken());
+    		}
+    		
+//        System.out.println(list);
+//        System.out.println(Arrays.toString(num));
+    		
+    		perm(0);
+    		sb.append("#");
+    		sb.append(test_case);
+    		sb.append(" ");
+    		sb.append(max-min);
+    		sb.append("\n");
+    		
     	}
-    }
+    	System.out.println(sb.toString());
+			
+	}
+
+	private static void perm(int cnt) {
+		if (cnt == N-1) {
+//			System.out.println(Arrays.toString(op));
+//			cal(op);
+//			StringBuilder check = new StringBuilder();
+//			for (int data : op) {
+//				check.append(data);
+//			}
+//			System.out.println(check.toString());
+//			String a = check.toString();
+//			if (!set.contains(a)) {
+//				set.add(a);
+//				cal(opt);
+//			}
+//			System.out.println(set);
+//			System.out.println(Arrays.toString(op_num));
+			cal(op_num);
+			return;
+		}
+		
+		for (int i = 0; i < 4; i++) {
+			if(op[i] == 0) continue;
+			op[i]--;
+			op_num[cnt] = i;
+			perm(cnt+1);
+			op[i]++;
+		}
+	}
+
+	private static void cal(int[] op) {
+		int temp = num[0];
+		int index = 1;
+		
+		for (int i = 0; i < N-1; i++) {
+			switch (op_num[i]) {
+			case 0:
+				temp += num[index];
+				index ++;
+				break;
+			case 1:
+				temp -= num[index];
+				index ++;
+				break;
+			case 2:
+				temp *= num[index];
+				index ++;
+				break;
+			case 3:
+				temp /= num[index];
+				index ++;
+				break;
+			}
+//			System.out.println(temp);
+		}
+//		System.out.println(temp);
+		
+		if (max < temp) max = temp;
+		if (min > temp) min = temp;
+	}
 }
+
+
