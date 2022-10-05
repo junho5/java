@@ -45,8 +45,8 @@ public class Solution {
     		for (int i = 0; i < N; i++) {
     			num[i] = Integer.parseInt(st.nextToken());
     		}
-    		
-//        System.out.println(list);
+    	
+    		System.out.println(Arrays.toString(op));
 //        System.out.println(Arrays.toString(num));
     		
     		perm(0);
@@ -63,7 +63,7 @@ public class Solution {
 
 	private static void perm(int cnt) {
 		if (cnt == N-1) {
-//			System.out.println(Arrays.toString(op));
+			System.out.println(Arrays.toString(op_num));
 //			cal(op);
 //			StringBuilder check = new StringBuilder();
 //			for (int data : op) {
