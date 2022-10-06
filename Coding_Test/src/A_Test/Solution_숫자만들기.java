@@ -1,20 +1,15 @@
-package SWEA;
-
+package A_Test;
 
 import java.util.*;
 import java.io.*;
 
-//1
-//5
-//2 1 0 1
-//3 5 3 7 9
-
-public class Solution_숫자만들기_fail {
+public class Solution_숫자만들기 {
 	
 	static int tc,N,max,min;
 	static List<Integer> list;
 	static int [] num;
 	static int [] op;
+	static int [] op_num;
 	static boolean [] V;
 	static Set<String> set;
 	
@@ -29,7 +24,8 @@ public class Solution_숫자만들기_fail {
     		N = Integer.parseInt(br.readLine());
     		num = new int [N];
     		list = new ArrayList<>();
-    		op = new int [N-1];
+    		op = new int [4]; // + - * / 개수 들어갈 배열
+    		op_num = new int [N-1]; // 연산자 개수 넘길때 사용
     		V = new boolean [N-1];
     		set = new HashSet<>();
     		max = Integer.MIN_VALUE;
@@ -37,18 +33,15 @@ public class Solution_숫자만들기_fail {
     		
     		st = new StringTokenizer(br.readLine());
     		for (int i = 0; i < 4; i++) {
-    			int range = Integer.parseInt(st.nextToken());
-    			for (int j = 0; j < range; j++) {
-    				list.add(i);
-    			}
+    			op[i] = Integer.parseInt(st.nextToken());
     		}
     		
     		st = new StringTokenizer(br.readLine());
     		for (int i = 0; i < N; i++) {
     			num[i] = Integer.parseInt(st.nextToken());
     		}
-    		
-//        System.out.println(list);
+    	
+    		System.out.println(Arrays.toString(op));
 //        System.out.println(Arrays.toString(num));
     		
     		perm(0);
@@ -65,28 +58,17 @@ public class Solution_숫자만들기_fail {
 
 	private static void perm(int cnt) {
 		if (cnt == N-1) {
-//			System.out.println(Arrays.toString(op));
-//			cal(op);
-			StringBuilder check = new StringBuilder();
-			for (int data : op) {
-				check.append(data);
-			}
-//			System.out.println(check.toString());
-			String a = check.toString();
-			if (!set.contains(a)) {
-				set.add(a);
-				cal(op);
-			}
-//			System.out.println(set);
+			System.out.println(Arrays.toString(op_num));
+			cal(op_num);
 			return;
 		}
 		
-		for (int i = 0; i < list.size(); i++) {
-			if(V[i] == true) continue;
-			op[cnt] = list.get(i);
-			V[i] = true;
+		for (int i = 0; i < 4; i++) {
+			if(op[i] == 0) continue;
+			op[i]--;
+			op_num[cnt] = i;
 			perm(cnt+1);
-			V[i] = false;
+			op[i]++;
 		}
 	}
 
@@ -95,7 +77,7 @@ public class Solution_숫자만들기_fail {
 		int index = 1;
 		
 		for (int i = 0; i < N-1; i++) {
-			switch (op[i]) {
+			switch (op_num[i]) {
 			case 0:
 				temp += num[index];
 				index ++;
@@ -121,8 +103,5 @@ public class Solution_숫자만들기_fail {
 		if (min > temp) min = temp;
 	}
 }
-
-
-
 
 

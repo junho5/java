@@ -3,12 +3,7 @@ package SWEA;
 import java.util.*;
 import java.io.*;
 
-//1
-//5
-//2 1 0 1
-//3 5 3 7 9
-
-public class Solution {
+public class Solution_숫자만들기 {
 	
 	static int tc,N,max,min;
 	static List<Integer> list;
@@ -64,19 +59,6 @@ public class Solution {
 	private static void perm(int cnt) {
 		if (cnt == N-1) {
 			System.out.println(Arrays.toString(op_num));
-//			cal(op);
-//			StringBuilder check = new StringBuilder();
-//			for (int data : op) {
-//				check.append(data);
-//			}
-//			System.out.println(check.toString());
-//			String a = check.toString();
-//			if (!set.contains(a)) {
-//				set.add(a);
-//				cal(opt);
-//			}
-//			System.out.println(set);
-//			System.out.println(Arrays.toString(op_num));
 			cal(op_num);
 			return;
 		}
