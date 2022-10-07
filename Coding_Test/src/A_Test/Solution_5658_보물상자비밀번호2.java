@@ -1,8 +1,6 @@
 package A_Test;
 
 import java.util.*;
-
-
 import java.io.*;
 
 public class Solution_5658_보물상자비밀번호2 {
