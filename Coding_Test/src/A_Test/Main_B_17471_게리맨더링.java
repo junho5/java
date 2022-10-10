@@ -24,7 +24,7 @@ public class Main_B_17471_게리맨더링 {
 		
 		N = Integer.parseInt(br.readLine()); // 정점 개수
 		population = new int [N]; // 인구수 배열
-		map = new int [N+1][N+1]; // 맵
+		map = new int [N+1][N+1]; // 인접행렬
 		S_V = new boolean [N]; // 부분집합 방문 배열
 		ans = Integer.MAX_VALUE; // 답 담을 변수
 		st = new StringTokenizer(br.readLine()); 

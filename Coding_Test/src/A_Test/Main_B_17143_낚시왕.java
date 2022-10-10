@@ -1,7 +1,6 @@
 package A_Test;
 
 import java.util.*;
-
 import java.io.*;
 
 public class Main_B_17143_낚시왕 {
