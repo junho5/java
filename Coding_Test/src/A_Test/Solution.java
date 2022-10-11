@@ -35,16 +35,68 @@ public class Solution {
 				}
 			}
 			
-			print(map);
-			System.out.println("=========================");
-			print(map2);
+//			print(map);
+//			System.out.println("=========================");
+//			print(map2);
 			
+//			System.out.println(countRoad());
 			
-//			sb.append("#");
-//			sb.append(test_case);
-//			sb.append(" ");
+			sb.append("#");
+			sb.append(test_case);
+			sb.append(" ");
+			sb.append(countRoad());
+			sb.append("\n");
 		}
-//		System.out.println(sb.toString());
+		System.out.println(sb.toString());
+	}
+
+	private static boolean checkRoad(int[] road) {
+		int size = 0, turn = 0;
+		int height = road[0];
+		
+		while(turn < N) {
+			// 동일 높이일 경우
+			if (height == road[turn]) {
+				size++;
+				turn++;
+			// 1 높은 벽을 만났을 경우
+			}else if (height+1 == road[turn]) {
+				if (size < X) return false;
+				height++;
+				size = 1;
+				turn++;
+			// 1 낮은 벽을 만났을 경우
+			}else if (height-1 == road[turn]) {
+				int cnt = 0;
+				for (int i = turn; i < N; i++) {
+					if (cnt == X) break;
+					if (road[i] != height-1) return false;
+					cnt++;
+				}
+				
+				// 길이 부족
+				if (cnt < X) return false;
+				turn += X;
+				height--;
+				size = 0;
+			// 높이가 2 이상인 경우 -> 불가능
+			}else {
+				return false;
+			}
+			
+		}
+		
+		return true;
+	}
+
+	private static int countRoad() {
+		int cnt = 0 ;
+		for (int i = 0; i < N; i++) {
+			if (checkRoad(map[i])) cnt++;
+			if (checkRoad(map2[i])) cnt++;
+		}
+		
+		return cnt;
 	}
 
 	private static void print(int[][] map) {
