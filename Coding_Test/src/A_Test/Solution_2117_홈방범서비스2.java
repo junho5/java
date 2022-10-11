@@ -1,10 +1,9 @@
 package A_Test;
 
-
 import java.util.*;
 import java.io.*;
 
-public class Solution_2117_홈방범서비스 {
+public class Solution_2117_홈방범서비스2 {
 	
 	static int tc;
 	static int N,M,ans;
@@ -72,14 +71,9 @@ public class Solution_2117_홈방범서비스 {
 		q.add(new House(x, y));
 		V[x][y] = true;
 		
-		// 1일 경우 미리 계산해서 결과 반영
-		int k = 1;
+		// 0 부터 시작
+		int k = 0;
 		int house_num = 0;
-		if (map[x][y] == 1) house_num++;
-		
-		if (cost(k) <= house_num * M && ans < house_num) {
-			ans = house_num;
-		}
 		
 		while(!q.isEmpty()) {
 			int size = q.size();
@@ -87,6 +81,7 @@ public class Solution_2117_홈방범서비스 {
 			
 			for (int i = 0; i < size; i++) {
 				House temp = q.poll();
+				if (map[temp.x][temp.y] == 1) house_num++;
 				
 				for (int j = 0; j < dx.length; j++) {
 					int h_x = temp.x + dx[j];
@@ -95,11 +90,11 @@ public class Solution_2117_홈방범서비스 {
 					if (h_x < 0 || h_y < 0 || h_x >=N || h_y >= N) continue;
 					if (V[h_x][h_y] == true) continue;
 					
-					if(map[h_x][h_y] == 1) house_num++;
 					V[h_x][h_y] = true;
 					q.add(new House(h_x, h_y));
 					
 				}
+				
 				if (cost(k) <= house_num * M && ans < house_num) {
 					ans = house_num;
 				}

@@ -3,7 +3,7 @@ package A_Test;
 import java.util.*;
 import java.io.*;
 
-public class Solution_숫자만들기 {
+public class Solution_4008_숫자만들기 {
 	
 	static int tc,N,max,min;
 	static List<Integer> list;
