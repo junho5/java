@@ -3,7 +3,7 @@ package A_Test;
 import java.util.*;
 import java.io.*;
 
-public class Solution {
+public class Solution_4014_활주로건설 {
 	
 	static int tc;
 	static int N,X;
