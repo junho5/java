@@ -13,17 +13,14 @@ public class Solution_2105_디저트카페 {
 	static int [] dy = { -1, 1, 1, -1 }; 
 	
 	static class food{
-		int x,y,dir,t;
+		int x,y,dir;
 
 		public food(int x, int y, int dir) {
 			super();
 			this.x = x;
 			this.y = y;
 			this.dir = dir;
-			t = map[x][y];
 		}
-		
-		
 	}
 
 	public static void main(String[] args) throws Exception{
@@ -84,17 +81,16 @@ public class Solution_2105_디저트카페 {
 		int ny = current.y + dy[current.dir];
 		
 		if (nx < 0 || ny < 0 || nx >= N || ny >= N) return;
-			if(V[map[nx][ny]] == false) {
-				V[map[nx][ny]] = true;
-				
-				food straight = new food(nx, ny, current.dir);
-				find(start,straight);
-				
-				food turn = new food(nx, ny, current.dir+1);
-				find(start,turn);
-				
-				V[map[nx][ny]] = false;
-			}
+		if (V[map[nx][ny]] == true) return;
+		
+			V[map[nx][ny]] = true;
+			food straight = new food(nx, ny, current.dir);
+			find(start,straight);
+			
+			food turn = new food(nx, ny, current.dir+1);
+			find(start,turn);
+			
+			V[map[nx][ny]] = false;
 		}
 
 

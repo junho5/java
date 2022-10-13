@@ -73,7 +73,6 @@ public class Solution_4014_활주로건설 {
 					if (road[i] != height-1) return false;
 					cnt++;
 				}
-				
 				// 길이 부족
 				if (cnt < X) return false;
 				turn += X;
@@ -83,9 +82,7 @@ public class Solution_4014_활주로건설 {
 			}else {
 				return false;
 			}
-			
 		}
-		
 		return true;
 	}
 
