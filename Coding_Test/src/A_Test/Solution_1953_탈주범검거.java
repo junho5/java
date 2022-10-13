@@ -52,7 +52,7 @@ public class Solution_1953_탈주범검거 {
 			
 //			print(map);
 			bfs(X,Y,map[X][Y]);
-//			print2(V);
+			print2(V);
 //			System.out.println(sumHole(V));
 			
 			

@@ -16,12 +16,12 @@ public class 순조부 {
 		M = sc.nextInt(); 
 		
 		numbers = new int[M];
-		input = new int [] {10,20,30,40};
+		input = new int [] {1,2,3};
 		selected = new boolean[input.length];
 		selected_subset = new boolean[M];
 		
-		perm1(0);
-//		perm2(0);
+//		perm1(0);
+		perm2(0);
 //		perm3(0,0);
 //		perm4(0,0);
 //		subset(0);

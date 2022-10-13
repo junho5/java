@@ -40,8 +40,6 @@ public class Solution_5653_줄기세포배양 {
 				return this.turn - o.turn;
 			}
 		}
-
-		
 	}
 
 	public static void main(String[] args) throws Exception {
