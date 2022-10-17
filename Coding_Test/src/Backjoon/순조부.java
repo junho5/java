@@ -20,8 +20,8 @@ public class 순조부 {
 		selected = new boolean[input.length];
 		selected_subset = new boolean[M];
 		
-//		perm1(0);
-		perm2(0);
+		perm1(0);
+//		perm2(0);
 //		perm3(0,0);
 //		perm4(0,0);
 //		subset(0);
