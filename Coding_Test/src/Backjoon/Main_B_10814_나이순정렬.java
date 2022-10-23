@@ -7,7 +7,7 @@ public class Main_B_10814_나이순정렬 {
 	
 	
 	public static void main(String[] args) throws Exception  {
-//		System.setIn(new FileInputStream("input/1.txt"));
+		System.setIn(new FileInputStream("input/10814.txt"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 		

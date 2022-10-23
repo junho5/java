@@ -1,82 +1,45 @@
 package frame;
 
 import java.util.*;
-
-
 import java.io.*;
+import java.util.StringTokenizer;
 
 public class Test {
-/*
-1 5 4 0 2 3
-0 2 5 0 4 5
-6 0 0 4 0 0
-2 2 2 4 3 0
-6 0 4 0 0 0
- */
 	
-	public static void main(String[] args) throws Exception{
-//		System.setIn(new FileInputStream("input/.txt"));
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
-		StringBuilder sb = new StringBuilder();
-		
-		int H = 5;
-		int W = 6;
-		int [][] map = new int [H][W];
-		int [][] newmap = new int [H][W];
-		
-		for (int i = 0; i < H; i++) {
-			st = new StringTokenizer(br.readLine());
-			for (int j = 0; j < W; j++) {
-				map[i][j] = Integer.parseInt(st.nextToken());
-			}
-		}
-		
-		for (int i = 0; i < W; i++) {
-			List<Integer> list = new ArrayList<Integer>();
-			for (int j = H -1 ; j >= 0; j--) {
-				if (map[j][i] != 0) {
-					list.add(map[j][i]);
-				}
-			}
-			
-			for (int j = 1; j <= list.size(); j++) {
-				newmap[H-j][i] = list.get(j-1);
-			}
-		}
-		print(map);
-		System.out.println("--------");
-		print(newmap);
-		
-		
-//		for (int i = 0; i < x; i++) {
-//			st = new StringTokenizer(br.readLine());
-//			for (int j = 0; j < y; j++) {
-//				map[i][j] = Integer.parseInt(st.nextToken());
-//			}
-//		}
-////		print(map);
-//		
-//		for (int i = 0; i < y; i++) {
-//			List<Integer> list = new ArrayList<Integer>();
-//			for (int j = x-1; j >= 0; j--) {
-//				if (map[j][i] != 0) {
-//					list.add(map[j][i]);
-//				}
-//			}
-//			for (int j = 1; j <= list.size(); j++) {
-//				map2[x-j][i] = list.get(j-1);
-//			}
-//		}
-//		print(map2);
-	}
+	static int N;
+	static boolean[] canCheck = new boolean[40001];
 
-	private static void print(int[][] map) {
-		for (int [] data_arr : map) {
-			for (int data : data_arr) {
-				System.out.printf("%d ",data);
-			}
-			System.out.println();
-		}
-	}
+    public static void main(String[] args) throws IOException{
+    	System.setIn(new FileInputStream("input/2629.txt"));
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        
+        N = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+        
+        for (int i = 0; i < N; i++) {
+            int choo = Integer.parseInt(st.nextToken());
+            boolean[] tempCanCheck = new boolean[40001];
+            for (int j = 0; j < 40001; j++) {
+                if (canCheck[j]) {
+                    tempCanCheck[j] = true;
+                    tempCanCheck[Math.abs(choo-j)] = true;
+                    tempCanCheck[choo+j] = true; // 범위 안 벗어남: 500 * 30 < 40000
+                }
+            }
+            tempCanCheck[choo] = true;
+
+            canCheck = tempCanCheck;
+        }
+
+        int T = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < T; i++) {
+
+            sb.append(canCheck[Integer.parseInt(st.nextToken())]? "Y ": "N ");
+        }
+        System.out.println(sb);
+    }
+
 }
