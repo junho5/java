@@ -5,7 +5,7 @@ import java.io.*;
 
 public class Main_B_20055_컨베이어벨트위의로봇 {
 
-	static int N, K, ans, time;
+	static int N, K, time;
 	static int start, end;
 	static int[] belt;
 	static boolean[] robot;
@@ -19,14 +19,14 @@ public class Main_B_20055_컨베이어벨트위의로봇 {
 		st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken()); // 벨트 길이
 		K = Integer.parseInt(st.nextToken()); // 제한 수
-		ans = 0;
-		time = 0;
+		time = 0; // 답
 
-		belt = new int[2 * N];
-		robot = new boolean[2 * N];
+		belt = new int[2 * N]; // 내구도 (벨트)
+		robot = new boolean[2 * N]; // 로봇 위치
 		start = 0; // 올리는 위치
 		end = N - 1; // 내리는 위치
-
+		
+		// 내구도 입력
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < belt.length; i++) {
 			belt[i] = Integer.parseInt(st.nextToken());
