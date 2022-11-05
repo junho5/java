@@ -47,10 +47,14 @@ public class Main_B_2206_벽부수고이동하기 {
 			}
 		}
 		
-		print(map);
+//		print(map);
 		
 		bfs(0,0,1,0);
-		System.out.println(ans);
+		if (ans == Integer.MAX_VALUE) {
+			System.out.println(-1);
+		}else {
+			System.out.println(ans);
+		}
 		
 	}
 
@@ -64,7 +68,7 @@ public class Main_B_2206_벽부수고이동하기 {
 		while(!q.isEmpty()) {
 			Node temp = q.poll();
 			
-			if (temp.x == n-1 && temp.y == m - 1) {
+			if (temp.x == n-1 && temp.y == m-1) {
 				ans = Math.min(ans, temp.cnt);
 				break;
 			}
@@ -73,40 +77,26 @@ public class Main_B_2206_벽부수고이동하기 {
 				int m_x = temp.x + dx[i];
 				int m_y = temp.y + dy[i];
 				
+				// map 범위 안맞을 경우
 				if (m_x < 0 || m_y < 0 || m_x >= n || m_y >= m) continue;
 				
-				if (map[m_x][m_y]==0) { // 벽 아닐 경우
-					if (v[m_x][m_y][temp.use] == false) {
+				
+				if (map[m_x][m_y] == 0) { // 벽이 아닌 경우
+					if(v[m_x][m_y][temp.use] == false) { // 이동 가능한지 확인
 						q.add(new Node(m_x, m_y, temp.cnt+1, temp.use));
-						v[m_x][m_y][0] = true;
+						v[m_x][m_y][temp.use] = true;
 					}
-				}else if (map[m_x][m_y] == 1){ // 벽인 경우
-					if (temp.use == 0 && v[m_x][m_y][1] == false) {
+				}else if (map[m_x][m_y] != 0) { // 벽인 경우
+					if(temp.use == 0 && v[m_x][m_y][1] == false) { // 이동 가능하고 벽을 아직 한번도 안부셨을 경우
 						q.add(new Node(m_x, m_y, temp.cnt+1, 1));
-						v[m_x][m_y][1] = true;
+						v[m_x][m_y][temp.use] = true;
 					}
+					
 				}
 				
 			}
-			
 		}
-		
-		
 	}
-
-
-	private static void print2(boolean[][][] v) {
-		for (boolean [][] data_arrs : v) {
-			for (boolean [] data_arr : data_arrs) {
-				for (boolean data : data_arr) {
-					System.out.print(data + " ");
-				}
-			}
-			System.out.println();
-		}
-		
-	}
-
 
 	private static void print(int[][] map) {
 		for (int [] data_arr : map) {
