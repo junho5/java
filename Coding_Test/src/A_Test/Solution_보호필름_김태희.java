@@ -51,37 +51,34 @@ public class Solution_보호필름_김태희 {
 	}
 	
 	private static int process() {
-		
-		int cnt = 0; // 약품 투여 막 개수
-		while(cnt<=k) { // 0번 ~ K번 약품 투여 시도
-			if(comb(0,0,cnt)) return cnt; // 해당 횟수로 약품을 투여해서 성능검사에 통과했다면 cnt 리턴
+		int cnt = 0;
+		while(cnt <= k) {
+			if(comb(0,0,cnt)) return cnt;
 			cnt++;
 		}
 		return -1;
 	}
 	
 	private static boolean comb(int start,int cnt,int targetCnt) {
-		
-		if(cnt == targetCnt) {
-			return check(); // 성능검사 결과 리턴
+		if (cnt == targetCnt) {
+			return check();
 		}
 		
-		for (int i = start ; i < x; i++) {
-			int[] backup = film[i];
+		for (int i = start; i < x; i++) {
+			int [] backup = film[i];
 			
-			// 약품 사용A
 			film[i] = a_drug;
-			if(comb(i+1, cnt+1, targetCnt)) return true;
+			if(comb(i+1,cnt+1,targetCnt)) return true;
 			
-			// 약품 사용B
 			film[i] = b_drug;
-			if(comb(i+1, cnt+1, targetCnt)) return true;
+			if(comb(i+1,cnt+1,targetCnt)) return true;
 			
 			film[i] = backup;
 		}
+		
 		return false;
 	}
-
+	
 	private static boolean check() {
 		for (int i = 0; i < y; i++) {
 			boolean result = false;
