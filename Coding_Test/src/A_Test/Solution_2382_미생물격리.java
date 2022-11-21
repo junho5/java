@@ -9,7 +9,7 @@ public class Solution_2382_미생물격리 {
 	static int n,time,num;
 	static cell [][] map;
 	static boolean [][] v;
-	static PriorityQueue<cell> q = new PriorityQueue<>();
+	static PriorityQueue<cell> q;
 	static int [] dx = {0,-1,1,0,0};
 	static int [] dy = {0,0,0,-1,1};
 	static class cell implements Comparable<cell>{
@@ -48,22 +48,21 @@ public class Solution_2382_미생물격리 {
 			
 			map = new cell [n][n];
 			v = new boolean [n][n];
-			
+			q = new PriorityQueue<>();
 			for (int i = 0; i < num; i++) {
 				st = new StringTokenizer(br.readLine());
 				q.add(new cell(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
 			}
 			
-			play();
-			print(map);
-//			System.out.println(cal());
+//			System.out.println(play());
 			
-			
-//			sb.append("#");
-//			sb.append(test_case);
-//			sb.append(" ");
+			sb.append("#");
+			sb.append(test_case);
+			sb.append(" ");
+			sb.append(play());
+			sb.append("\n");
 		}
-//		System.out.println(sb.toString());
+		System.out.println(sb.toString());
 	}
 
 	private static void print(cell[][] map) {
@@ -91,8 +90,9 @@ public class Solution_2382_미생물격리 {
 		return total;
 	}
 
-	private static void play() {
-		while(time >= 0) {
+	private static int play() {
+		int total = 0;
+		while(time > 0) {
 			
 			while(!q.isEmpty()) {
 				cell temp = q.poll();
@@ -102,32 +102,41 @@ public class Solution_2382_미생물격리 {
 				
 				// 끝에 위치 할 경우 
 				if (mx == 0 || mx ==n-1 || my == 0 || my ==n-1) {
-					int life = temp.life;
-					life /= 2;
-					if (life == 0) continue;
+					temp.life /= 2;
+					if (temp.life == 0) continue;
 				
 //						끝 위치하므로 변경 상(1) 하(2) 좌(3) 우(4)
 						if (temp.dir == 1 || temp.dir == 3) temp.dir++;
-						else{
-							temp.dir--;
-						}
+						else temp.dir--;
+						
 				}
 				
 				if (map[mx][my] == null) {
 					map[mx][my] = new cell(mx, my, temp.life, temp.dir);
-					map[mx][my] = temp;
 				}else {
 					map[mx][my].life += temp.life;
 				}
 				
 			}
 			time--;
-//			System.out.println("====================");
-//			System.out.printf("%d\n",time);
-//			print(map);
+			total = cal();
+			reset();
 			
 		}
+		return total;
 	}
+
+	private static void reset() {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (map[i][j] == null) continue; 
+				q.add(map[i][j]);
+				map[i][j] = null;
+			}
+		}
+	}
+	
+	
 
 
 }

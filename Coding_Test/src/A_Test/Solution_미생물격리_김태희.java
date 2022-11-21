@@ -64,8 +64,8 @@ public class Solution_미생물격리_김태희 {
 			while(!pQueue.isEmpty()) {
 				Micro cur = pQueue.poll();
 				
-				int nr = cur.r += dr[cur.dir];
-				int nc = cur.c += dc[cur.dir];
+				int nr = cur.r + dr[cur.dir];
+				int nc = cur.c + dc[cur.dir];
 				
 				// 이동 위치가 약품셀 위치인지 확인
 				if(nr==0 || nr==N-1 || nc==0 || nc==N-1) {
@@ -82,7 +82,7 @@ public class Solution_미생물격리_김태희 {
 				}
 				
 				if(map[nr][nc] == null) { // 이동한 위치에 처음 온 미생물군집이면 현재 위치에 올수 있는 가장 큰 군집
-					map[nr][nc] = cur;
+					map[nr][nc] = new Micro(nr, nc, cur.cnt, cur.dir);
 				}else {
 					map[nr][nc].cnt += cur.cnt;
 				}
