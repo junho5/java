@@ -48,11 +48,9 @@ public class 전원연결 {
 		System.out.println(sb.toString());
 	}
 
-	// idx = 현재 고려하는 core의 corelist 상의 index
-	// cnt = 현재까지 전선이 연결된 core 수
+	// idx = 현재 고려하는 core의 corelist 상의 index | cnt = 현재까지 전선이 연결된 core 수
 	private static void dfs(int idx, int cnt) {
-		// 기저 조건
-		// idx 가 coreList에 있는 전체를 다 따진 경우
+		// 기저 조건 -> idx 가 coreList에 있는 전체를 다 따진 경우
 		if (idx == corelist.size()) {
 			// maxCore 와 cnt 비교 , 전선의 길이를 고려해서 minLength 계산
 			int len = calc(); // 현재 시점에 놓여진 전선의 길이 계산
@@ -65,14 +63,8 @@ public class 전원연결 {
 			}
 			return;
 		}
-		// 현재 core를 연결
-		// 현재 idx 의 core 좌표 구해서 (x,y)
-		// 현재 좌표에서 놓을 수 있는 전선을 연결해본다.
-		// 4방으로 진행
-			// 각각의 방향으로 가능한지 확인하고 가능하면
-				// 전선을 놓고
-				// 다음 core로 다시 dfs 연결을 계속해간다.
-				// 놓은 전선을 다시 회수
+		// 현재 core를 연결  core 좌표 구해서 (x,y) 현재 좌표에서 놓을 수 있는 전선을 연결해본다.
+		// 가능한지 확인하고 가능하면 전선을 놓고 다음 core로 이동 후 dfs 진행 돌아올때 전선 회수
 		int [] cur = corelist.get(idx);
 		int x = cur[0];
 		int y = cur[1];
@@ -119,7 +111,6 @@ public class 전원연결 {
 	}
 
 	// 전선의 길이를 계산하는 메소드
-	// 전선을 map에 놓을경우 2로 처리
 	private static int calc() {
 		int cnt = 0;
 		for (int i = 0; i < N; i++) {
