@@ -50,6 +50,9 @@ public class 전원연결 {
 
 	// idx = 현재 고려하는 core의 corelist 상의 index | cnt = 현재까지 전선이 연결된 core 수
 	private static void dfs(int idx, int cnt) {
+		// 가지 치기
+		if (maxCore > corelist.size()-idx + cnt) return;
+		
 		// 기저 조건 -> idx 가 coreList에 있는 전체를 다 따진 경우
 		if (idx == corelist.size()) {
 			// maxCore 와 cnt 비교 , 전선의 길이를 고려해서 minLength 계산
