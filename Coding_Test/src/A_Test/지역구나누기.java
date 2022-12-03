@@ -3,7 +3,7 @@ package A_Test;
 import java.util.*;
 import java.io.*;
 
-public class Main_B_17471_게리맨더링 {
+public class 지역구나누기 {
 
 	static int tc,N,ans;
 	static int [][] graph;
@@ -12,39 +12,42 @@ public class Main_B_17471_게리맨더링 {
 	static int [] pop;
 	static List<Integer> a_list,b_list;
 	static Set<Integer> con;
-	static boolean con_check;
 	
 	public static void main(String[] args) throws Exception {
-		System.setIn(new FileInputStream("input/17471.txt"));
+		System.setIn(new FileInputStream("input/1_1.txt"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 		StringBuilder sb = new StringBuilder();
 		
-		N = Integer.parseInt(br.readLine()); // 정점 수
-		graph = new int [N+1][N+1]; // 인접행렬
-		s_v = new boolean [N+1]; // 부분집합 방문배열
-		pop = new int [N+1]; // 인구수 배열
-		ans = Integer.MAX_VALUE; // 답
-		con_check = false;
-		st = new StringTokenizer(br.readLine());
-		for (int i = 1; i <= N; i++) {
-			pop[i] = Integer.parseInt(st.nextToken());
-		}
+		tc = Integer.parseInt(br.readLine());
 		
-		for (int i = 1; i <= N; i++) {
-			st = new StringTokenizer(br.readLine());
-			int range = Integer.parseInt(st.nextToken());
-			for (int j = 0; j < range; j++) {
-				graph[i][Integer.parseInt(st.nextToken())] = 1; 
+		for (int test_case = 1; test_case <= tc; test_case++) {
+			N = Integer.parseInt(br.readLine()); // 정점 수
+			graph = new int [N+1][N+1]; // 인접행렬
+			s_v = new boolean [N+1]; // 부분집합 방문배열
+			pop = new int [N+1]; // 인구수 배열
+			ans = Integer.MAX_VALUE; // 답
+			
+			for (int i = 1; i <= N; i++) {
+				st = new StringTokenizer(br.readLine());
+				for (int j = 1; j <= N; j++) {
+					graph[i][j] = Integer.parseInt(st.nextToken());
+				}
 			}
+			
+			st = new StringTokenizer(br.readLine());
+			for (int i = 1; i <= N; i++) {
+				pop[i] = Integer.parseInt(st.nextToken());
+			}
+			
+			subset(1);
+			sb.append("#");
+			sb.append(test_case);
+			sb.append(" ");
+			sb.append(ans);
+			sb.append("\n");
 		}
-		
-		subset(1);
-		if(con_check) {
-			System.out.println(ans);
-		}else {
-			System.out.println(-1);
-		}
+		System.out.println(sb.toString());
 		
 	}
 
@@ -90,7 +93,6 @@ public class Main_B_17471_게리맨더링 {
 		// 만약 연결이 정상이 아닐경우 종료
 		if (con.size() != N) return;
 		
-		con_check = true;
 		// 인구수 계산
 		int a_sum = 0;
 		int b_sum = 0;

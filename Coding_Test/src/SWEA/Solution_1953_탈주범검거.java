@@ -1,4 +1,4 @@
-package A_Test;
+package SWEA;
 
 import java.util.*;
 import java.io.*;
