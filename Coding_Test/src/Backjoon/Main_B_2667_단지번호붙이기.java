@@ -3,7 +3,7 @@ package Backjoon;
 import java.util.*;
 import java.io.*;
 
-public class Main_B_2606_바이러스 {
+public class Main_B_2667_단지번호붙이기 {
 
 
 	public static void main(String[] args) throws Exception {
