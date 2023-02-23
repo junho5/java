@@ -14,7 +14,6 @@ public class Solution_14510_나무높이 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 		StringBuilder sb = new StringBuilder();
-		
 		tc = Integer.parseInt(br.readLine());
 		for (int test_case = 1; test_case <= tc; test_case++) {
 			N = Integer.parseInt(br.readLine());
